@@ -25,7 +25,6 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Регистрация exception handlers
 app.add_exception_handler(CalculationError, calculation_error_handler)
 app.add_exception_handler(DatabaseError, database_error_handler)
 app.add_exception_handler(CalcServiceError, calc_service_error_handler)

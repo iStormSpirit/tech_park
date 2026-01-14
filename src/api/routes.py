@@ -24,27 +24,22 @@ async def calculate_cost(
     logger.info(f"Расчёт сохранён в БД с ID: {calc_result.id}")
     return CalcResponseSchema(total_cost_rub=total_cost)
 
-
-@router.get("/last_calc", response_model=list[CalcResultItemSchema])
-async def last_calc(
-        repository: CalcRepository = Depends(get_repository)
-):
-    """
-    Возвращает 10 последних расчётов отсортированных по дате
-    """
-    logger.info("Получен запрос на список последних расчётов")
-    results = await repository.get_latest(limit=10)
-    logger.info(f"Возвращено {len(results)} расчётов")
-    return [
-        CalcResultItemSchema(
-            id=result.id,
-            total_cost_rub=result.total_cost_rub,
-            created_at=result.created_at
-        )
-        for result in results
-    ]
-
-
-@router.get("/")
-async def root():
-    return {"message": "Сервис расчёта стоимости изделия"}
+# # Раскомментировать если необходимо проверить возврат последних 10 расчетов
+# @router.get("/last_calc", response_model=list[CalcResultItemSchema])
+# async def last_calc(
+#         repository: CalcRepository = Depends(get_repository)
+# ):
+#     """
+#     Возвращает 10 последних расчётов отсортированных по дате
+#     """
+#     logger.info("Получен запрос на список последних расчётов")
+#     results = await repository.get_latest(limit=10)
+#     logger.info(f"Возвращено {len(results)} расчётов")
+#     return [
+#         CalcResultItemSchema(
+#             id=result.id,
+#             total_cost_rub=result.total_cost_rub,
+#             created_at=result.created_at
+#         )
+#         for result in results
+#     ]
